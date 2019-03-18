@@ -1,7 +1,6 @@
 # Assembly and Stack Generator
-    Using for compile an expression in to assembly language form.
+   Using for compile an expression in to assembly language form.
 
-## Uses
 ### MIPS Assembly Generator (c -> asm)
 ```bash
     gcc expr_compiler.c
