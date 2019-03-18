@@ -27,5 +27,4 @@
     '.png'      is qtSPIM screen shot of that file name execution.
 ```
 
-This lab is finished.# Expression-to-Assembly
-# Expression-to-Assembly
+This lab is finished.

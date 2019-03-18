@@ -1,0 +1,13 @@
+push 11
+push 22
+push 33
+mul
+push 12
+mod
+add
+push 44
+push 3
+div
+sub
+push 7
+sub
