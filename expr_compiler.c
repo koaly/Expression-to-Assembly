@@ -178,55 +178,55 @@ static void AsmGenerator(Node root)
             // printf("lw $t0, 4($sp)\n");
             // printf("add $a0, $t0, $a0\n");
             // printf("addiu $sp, $sp, 4\n");
-            fputs("lw $t0, 4($sp)\r\n", o);
-            fputs("add $a0, $t0, $a0\r\n", o);
-            fputs("addiu $sp, $sp, 4\r\n", o);
+            fputs("lw $t0, 4($sp) # load top of stack\r\n", o);
+            fputs("add $a0, $t0, $a0 # acc = tos + acc\r\n", o);
+            fputs("addiu $sp, $sp, 4 # pop stack\r\n", o);
             break;
         case minus:
             // printf("lw $t0, 4($sp)\n");
             // printf("sub $a0, $t0, $a0\n");
             // printf("addiu $sp, $sp, 4\n");
-            fputs("lw $t0, 4($sp)\r\n", o);
-            fputs("sub $a0, $t0, $a0\r\n", o);
-            fputs("addiu $sp, $sp, 4\r\n", o);
+            fputs("lw $t0, 4($sp) # load top of stack\r\n", o);
+            fputs("sub $a0, $t0, $a0 # acc = tos - acc\r\n", o);
+            fputs("addiu $sp, $sp, 4 # pop stack\r\n", o);
             break;
         case times:
             // printf("lw $t0, 4($sp)\n");
             // printf("mul $a0, $t0, $a0\n");
             // printf("addiu $sp, $sp, 4\n");
-            fputs("lw $t0, 4($sp)\r\n", o);
-            fputs("mul $a0, $t0, $a0\r\n", o);
-            fputs("addiu $sp, $sp, 4\r\n", o);
+            fputs("lw $t0, 4($sp) # load top of stack\r\n", o);
+            fputs("mul $a0, $t0, $a0 # acc = tos * acc\r\n", o);
+            fputs("addiu $sp, $sp, 4 # pop stack\r\n", o);
             break;
         case divide:
             // printf("lw $t0, 4($sp)\n");
             // printf("div $t0, $a0\n");
             // printf("mflo $a0\n");
             // printf("addiu $sp, $sp, 4\n");
-            fputs("lw $t0, 4($sp)\r\n", o);
-            fputs("div $t0, $a0\r\n", o);
-            fputs("mflo $a0\r\n", o);
-            fputs("addiu $sp, $sp, 4\r\n", o);
+            fputs("lw $t0, 4($sp) # load top of stack\r\n", o);
+            fputs("div $t0, $a0 # acc = top / acc\r\n", o);
+            fputs("mflo $a0 # move quotient from lo to acc\r\n", o);
+            fputs("addiu $sp, $sp, 4 # pop stack\r\n", o);
             break;
         case mod:
             // printf("lw $t0, 4($sp)\n");
             // printf("div $t0, $a0\n");
             // printf("mfhi $a0\n");
             // printf("addiu $sp, $sp, 4\n");
-            fputs("lw $t0, 4($sp)\r\n", o);
-            fputs("div $t0, $a0\r\n", o);
-            fputs("mfhi $a0\r\n", o);
-            fputs("addiu $sp, $sp, 4\r\n", o);
+            fputs("lw $t0, 4($sp) # load top of stack\r\n", o);
+            fputs("div $t0, $a0 # acc = top / acc\r\n", o);
+            fputs("mfhi $a0 # move remainer from hi to acc\r\n", o);
+            fputs("addiu $sp, $sp, 4 # pop stack\r\n", o);
             break;
         case number:
             // printf("sw $a0, 0($sp)\n");
             // printf("addiu $sp, $sp, -4\n");
             // printf("li $a0, %d\n", root->val);
-            fputs("sw $a0, 0($sp)\r\n", o);
-            fputs("addiu $sp, $sp, -4\r\n", o);
+            fputs("sw $a0, 0($sp) # push acc to stack\r\n", o);
+            fputs("addiu $sp, $sp, -4 # move stack pointer\r\n", o);
             fputs("li $a0, ", o);
             fprintf(o, "%d", root->val);
-            fputs("\r\n", o);
+            fputs(" # load new acc\r\n", o);
             break;
         }
     }
